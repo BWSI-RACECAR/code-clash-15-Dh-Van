@@ -39,29 +39,31 @@ class Solution:
     def interval_scheduling(self, intervals):
             #type intervals: list of int tuples
             #return type: list of int tuples
-            event_list = []
-            intervals.sort()
-            print(intervals)
             
-            for t in intervals:
-                x = [t]
-                for i in range(1, len(intervals)):
-                    if(t[1] <= intervals[i][0]): x.append(intervals[i])
-                event_list.append(x)
+            #TODO: Write code below to return an int tuples list with the solution to the prompt.
+            
+            # sorts by first value
+            sorted = []
+            out = []
+            for i in range(len(intervals)):
+                added = False
+                for j in range(len(sorted)):
+                    if intervals[i][1] < sorted[j][1]:
+                        sorted.insert(j, intervals[i])
+                        added = True
+                if not added:
+                    sorted.append(intervals[i])
+            
+            for i in sorted:
 
-            event_list.sort()
-            print(event_list)
-            biggest = [(0, 0)], 10000
-            for i in event_list:
-                time = 0
-                for x in i:
-                    time += x[1] - x[0]
-                if(biggest[1] > time and len(i) > len(biggest[0])):
-                     biggest = i, time
-                
-            return biggest[0]
-                           
+                if out and i[0] < out[-1][1]:
+                    pass
+                else:
+                    out.append(i)
+                 
+            return out
 
+   
 
 
 def main():
